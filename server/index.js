@@ -20,7 +20,7 @@ massive({
 app.get('/api/products', controller.getProducts);
 app.get('/api/products/:id', controller.getProduct);
 app.put('/api/products/:id', controller.update);
-app.delete('/api/products:id', controller.delete);
+app.delete('/api/products/:id', controller.delete);
 app.post('/api/products', controller.create);
 
 app.listen(SERVER_PORT, ()=>{

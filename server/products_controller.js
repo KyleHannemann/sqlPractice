@@ -3,7 +3,7 @@ module.exports = {
         const db = req.app.get('db');
         const {name, description, price, image_url} = req.body;
         db.create_product([name, description, price, image_url]).then(()=>{
-            res.status(200).send('ok')
+            res.status(200).send('product added')
         }).catch(err=>{
             console.log(err);
             res.status(500).send('error')
@@ -30,10 +30,11 @@ module.exports = {
     }, 
     update: (req, res, next)=>{
         const db = req.app.get('db');
-        const {product_id} = req.params;
-        const {description} = req.query;
-        db.update_product([product_id, description ]).then(()=>{
-            res.status(200).send('ok')
+        const {id} = req.params;
+        const {description, name, image_url, price} = req.body;
+
+        db.update_product([id, description, name, price, image_url ]).then(()=>{
+            res.status(200).send("update complete")
         }).catch(err=>{
             res.status(500).send('err');
             console.log(err);
@@ -41,9 +42,9 @@ module.exports = {
     }, 
     delete: (req, res, next)=>{
         const db = req.app.get('db');
-        const {product_id} = req.params
-        db.delete_product(product_id).then(()=>{
-            res.status(200).send('ok');
+        const {id} = req.params
+        db.delete_product(id).then(()=>{
+            res.status(200).send('product deleted');
         }).catch(err=>{
             res.status(500).send('err');
             console.log(err);
